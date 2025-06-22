@@ -1,0 +1,73 @@
+{
+  "monthlyExpenses": [
+    { "month": "Jan", "amount": 45000, "color": "#3b82f6" },
+    { "month": "Feb", "amount": 52000, "color": "#3b82f6" },
+    { "month": "Mar", "amount": 38000, "color": "#3b82f6" },
+    { "month": "Apr", "amount": 61000, "color": "#3b82f6" },
+    { "month": "May", "amount": 49000, "color": "#3b82f6" },
+    { "month": "Jun", "amount": 55000, "color": "#3b82f6" }
+  ],
+  "categoryBreakdown": [
+    { "category": "Food", "amount": 18000, "percentage": 32.7, "color": "#f97316" },
+    { "category": "Transport", "amount": 15000, "percentage": 27.3, "color": "#3b82f6" },
+    { "category": "Shopping", "amount": 12000, "percentage": 21.8, "color": "#8b5cf6" },
+    { "category": "Bills", "amount": 8000, "percentage": 14.5, "color": "#ef4444" },
+    { "category": "Others", "amount": 2000, "percentage": 3.7, "color": "#6b7280" }
+  ],
+  "weeklyData": [
+    { "day": "Mon", "amount": 8500 },
+    { "day": "Tue", "amount": 7200 },
+    { "day": "Wed", "amount": 9300 },
+    { "day": "Thu", "amount": 6800 },
+    { "day": "Fri", "amount": 10200 },
+    { "day": "Sat", "amount": 7800 },
+    { "day": "Sun", "amount": 6200 }
+  ],
+  "recentTransactions": [
+    {
+      "id": "1",
+      "name": "Uber Ride",
+      "date": "June 18, 2025",
+      "amount": "₹350",
+      "icon": "car",
+      "iconBg": "#dbeafe",
+      "type": "expense"
+    },
+    {
+      "id": "2",
+      "name": "Dinner",
+      "date": "June 17, 2025",
+      "amount": "₹850",
+      "icon": "restaurant",
+      "iconBg": "#fed7aa",
+      "type": "expense"
+    },
+    {
+      "id": "3",
+      "name": "Fuel",
+      "date": "June 16, 2025",
+      "amount": "₹2,500",
+      "icon": "car-sport",
+      "iconBg": "#bbf7d0",
+      "type": "expense"
+    },
+    {
+      "id": "4",
+      "name": "Groceries",
+      "date": "June 15, 2025",
+      "amount": "₹1,200",
+      "icon": "basket",
+      "iconBg": "#a5f3fc",
+      "type": "expense"
+    },
+    {
+      "id": "5",
+      "name": "Salary",
+      "date": "June 14, 2025",
+      "amount": "₹45,000",
+      "icon": "card",
+      "iconBg": "#dcfce7",
+      "type": "income"
+    }
+  ]
+} 

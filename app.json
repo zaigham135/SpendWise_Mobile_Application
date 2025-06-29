@@ -20,8 +20,8 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.zaigham135.Expense_App_Fixed",
-      "googleServicesFile": "./google-services.json"
+      "package": "com.zaigham135.Expense_App_Fixed"
+      
     },
     "web": {
       "favicon": "./assets/favicon.png"

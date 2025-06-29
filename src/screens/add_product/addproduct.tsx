@@ -1,28 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Platform } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, ScrollView, Modal } from "react-native";
 import { Ionicons, MaterialIcons, FontAwesome5, MaterialCommunityIcons, Entypo } from "@expo/vector-icons";
-
+import { addproductStyles as styles } from "../../../style/addproduct/addproduct.styles";
 const THEME_PURPLE = "#37474F";
-const LIGHT_BG = "#fff";
-const BORDER = "#e5e7eb";
 const TEXT_GRAY = "#6b7280";
 
-const categories = [
-  { label: "Travel", icon: <FontAwesome5 name="plane" size={22} color="#3B82F6" /> },
-  { label: "Food", icon: <MaterialIcons name="restaurant" size={22} color="#f59e42" /> },
-  { label: "Petrol", icon: <MaterialCommunityIcons name="gas-station" size={22} color="#ef4444" /> },
-  { label: "Clothes", icon: <MaterialCommunityIcons name="tshirt-crew" size={22} color="#a78bfa" /> },
-  { label: "Rent", icon: <Entypo name="home" size={22} color="#22c55e" /> },
-  { label: "Groceries", icon: <MaterialIcons name="local-grocery-store" size={22} color="#fbbf24" /> },
-  { label: "Other", icon: <Ionicons name="ellipsis-horizontal" size={22} color="#64748b" />, full: true },
-];
-
-const paymentModes = [
-  { label: "UPI", icon: <MaterialCommunityIcons name="cellphone" size={20} color="#6366F1" /> },
-  { label: "Credit Card", icon: <MaterialIcons name="credit-card" size={20} color="#3b82f6" /> },
-  { label: "Cash", icon: <FontAwesome5 name="money-bill-wave" size={20} color="#22c55e" /> },
-  { label: "Netbanking", icon: <MaterialCommunityIcons name="bank" size={20} color="#64748b" /> },
-];
+const DEFAULT_COLORS = ["#3B82F6", "#f59e42", "#ef4444", "#a78bfa", "#22c55e", "#fbbf24", "#64748b", "#6366F1", "#14b8a6"];
 
 export default function AddProduct() {
   const [amount, setAmount] = useState("");
@@ -30,6 +13,44 @@ export default function AddProduct() {
   const [selectedPayment, setSelectedPayment] = useState(0);
   const [date, setDate] = useState("");
   const [notes, setNotes] = useState("");
+  const [showAddCategory, setShowAddCategory] = useState(false);
+  const [newCategoryName, setNewCategoryName] = useState("");
+
+  // Move categories to state so you can add new ones
+  const [categories, setCategories] = useState([
+    { label: "Travel", icon: <FontAwesome5 name="plane" size={22} color="#3B82F6" /> },
+    { label: "Food", icon: <MaterialIcons name="restaurant" size={22} color="#f59e42" /> },
+    { label: "Petrol", icon: <MaterialCommunityIcons name="gas-station" size={22} color="#ef4444" /> },
+    { label: "Clothes", icon: <MaterialCommunityIcons name="tshirt-crew" size={22} color="#a78bfa" /> },
+    { label: "Rent", icon: <Entypo name="home" size={22} color="#22c55e" /> },
+    { label: "Groceries", icon: <MaterialIcons name="local-grocery-store" size={22} color="#fbbf24" /> },
+    { label: "Other", icon: <Ionicons name="ellipsis-horizontal" size={22} color="#64748b" />, full: true },
+  ]);
+
+  // Your existing paymentModes array (leave as is)
+  const paymentModes = [
+    { label: "UPI", icon: <MaterialCommunityIcons name="cellphone" size={20} color="#6366F1" /> },
+    { label: "Credit Card", icon: <MaterialIcons name="credit-card" size={20} color="#3b82f6" /> },
+    { label: "Cash", icon: <FontAwesome5 name="money-bill-wave" size={20} color="#22c55e" /> },
+    { label: "Netbanking", icon: <MaterialCommunityIcons name="bank" size={20} color="#64748b" /> },
+  ];
+
+  // Helper to get a random color for new categories
+  const getRandomColor = () => DEFAULT_COLORS[Math.floor(Math.random() * DEFAULT_COLORS.length)];
+
+  const handleAddCategory = () => {
+    if (newCategoryName.trim()) {
+      setCategories([
+        ...categories,
+        {
+          label: newCategoryName.trim(),
+          icon: <Ionicons name="pricetag" size={22} color={getRandomColor()} />,
+        },
+      ]);
+      setNewCategoryName("");
+      setShowAddCategory(false);
+    }
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: "#f6f8fa" }}>
@@ -84,6 +105,18 @@ export default function AddProduct() {
               <Text style={styles.gridLabel}>{cat.label}</Text>
             </TouchableOpacity>
           ))}
+          {/* Add Category Card */}
+          <TouchableOpacity
+            style={[
+              styles.gridItem,
+              { borderStyle: "dashed", borderColor: "#a1a1aa", backgroundColor: "#f3f4f6", justifyContent: "center", alignItems: "center" },
+            ]}
+            onPress={() => setShowAddCategory(true)}
+            activeOpacity={0.7}
+          >
+            <Ionicons name="add-circle" size={28} color="#6366F1" />
+            <Text style={[styles.gridLabel, { color: "#6366F1" }]}>Add</Text>
+          </TouchableOpacity>
         </View>
 
         {/* Payment Mode */}
@@ -136,155 +169,67 @@ export default function AddProduct() {
           <Ionicons name="add" size={20} color="#fff" style={{ marginRight: 8 }} />
           <Text style={styles.addBtnText}>Add Expense</Text>
         </TouchableOpacity>
+
+        {/* Add Category Modal */}
+        <Modal visible={showAddCategory} transparent animationType="fade">
+          <View style={{
+            flex: 1,
+            backgroundColor: 'rgba(0,0,0,0.2)',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            <View style={{
+              backgroundColor: '#fff',
+              borderRadius: 12,
+              padding: 24,
+              width: 300,
+              alignItems: 'center'
+            }}>
+              <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 12 }}>Add Category</Text>
+              <TextInput
+                style={{
+                  borderWidth: 1,
+                  borderColor: "#a1a1aa",
+                  borderRadius: 8,
+                  padding: 10,
+                  width: "100%",
+                  marginBottom: 16,
+                }}
+                placeholder="Enter category name"
+                value={newCategoryName}
+                onChangeText={setNewCategoryName}
+                autoFocus
+              />
+              <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: "#37474F",
+                    paddingVertical: 10,
+                    paddingHorizontal: 18,
+                    borderRadius: 8,
+                    marginRight: 8,
+                  }}
+                  onPress={handleAddCategory}
+                >
+                  <Text style={{ color: "#fff", fontWeight: "bold" }}>Add</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: "#e5e7eb",
+                    paddingVertical: 10,
+                    paddingHorizontal: 18,
+                    borderRadius: 8,
+                  }}
+                  onPress={() => setShowAddCategory(false)}
+                >
+                  <Text style={{ color: "#222" }}>Cancel</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
       </ScrollView>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  label: {
-    fontWeight: "600",
-    color: "#22223b",
-    fontSize: 15,
-    marginBottom: 6,
-    marginTop: 18,
-  },
-  inputBox: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: LIGHT_BG,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: BORDER,
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    marginBottom: 8,
-  },
-  input: {
-    fontSize: 18,
-    color: "#22223b",
-    flex: 1,
-    padding: 0,
-    backgroundColor: "transparent",
-  },
-  grid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-    marginBottom: 8,
-  },
-  gridItem: {
-    width: "30%",
-    aspectRatio: 1.1,
-    backgroundColor: LIGHT_BG,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: BORDER,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 12,
-    padding: 8,
-  },
-  gridLabel: {
-    fontSize: 13,
-    color: "#22223b",
-    marginTop: 6,
-    fontWeight: "500",
-    textAlign: "center",
-  },
-  paymentGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-    marginBottom: 8,
-  },
-  paymentGridItem: {
-    width: "48%",
-    backgroundColor: LIGHT_BG,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: BORDER,
-    alignItems: "flex-start",
-    justifyContent: "center",
-    marginBottom: 12,
-    paddingVertical: 14,
-    paddingHorizontal: 14,
-  },
-  paymentGridLabel: {
-    fontSize: 14,
-    color: "#22223b",
-    fontWeight: "500",
-    marginLeft: 10,
-  },
-  notesInput: {
-    backgroundColor: LIGHT_BG,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: BORDER,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    fontSize: 15,
-    color: "#22223b",
-    minHeight: 60,
-    marginBottom: 18,
-    marginTop: 4,
-    textAlignVertical: "top",
-  },
-  addBtn: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: THEME_PURPLE,
-    borderRadius: 10,
-    paddingVertical: 14,
-    justifyContent: "center",
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  addBtnText: {
-    color: "#fff",
-    fontWeight: "700",
-  },
-  headerWrapper: {
-    width: "100%",
-    backgroundColor: "white",
-    borderBottomLeftRadius: 18,
-    borderBottomRightRadius: 18,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    elevation: 4,
-    paddingBottom: 8,
-    marginBottom: 8,
-    zIndex: 10,
-  },
-  headerRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 24,
-    paddingTop: Platform.OS === "ios" ? 48 : 24,
-    paddingBottom: 12,
-  },
-  iconBox: {
-    width: 36,
-    height: 36,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  walletIconBg: {
-    width: 32,
-    height: 32,
-    backgroundColor: THEME_PURPLE,
-    borderRadius: 8,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  headerTitle: {
-    fontSize: 22,
-    fontWeight: "700",
-    color: "#1f2937",
-    fontFamily: "System",
-    letterSpacing: 0.5,
-  },
-});

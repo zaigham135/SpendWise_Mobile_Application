@@ -11,6 +11,7 @@ import EditProfile from '../../screens/login/editUserDetails/editProfile';
 const Tab = createBottomTabNavigator();
 
 export default function AppTabs({setIsLoggedIn}) {
+  console.log("AppTabs rendered");
   return (
     <Tab.Navigator
       screenOptions={{

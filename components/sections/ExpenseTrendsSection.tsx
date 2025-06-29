@@ -4,19 +4,30 @@ import { Ionicons } from '@expo/vector-icons';
 import expenseData from '../../data/expenseData.json';
 import { LineChart } from 'react-native-chart-kit';
 
-const timePeriods = [
-  { value: 'weekly', label: 'Weekly', active: true },
-  { value: 'monthly', label: 'Monthly', active: false },
-  { value: 'custom', label: 'Custom', active: false },
-];
-
+const ORANGE = "#37474F";
+const LIGHT_ORANGE = "#FFF3E6";
+const GRAY = "#F3F4F6";
+const DARK = "#22223b";
+const GREEN = "#22c55e";
 const screenWidth = Dimensions.get('window').width;
 
+const timePeriods = [
+  { value: 'daily', label: 'Daily' },
+  { value: 'weekly', label: 'Weekly' },
+  { value: 'monthly', label: 'Monthly' },
+];
+
 export default function ExpenseTrendsSection() {
-  const [activePeriod, setActivePeriod] = useState('weekly');
+  const [activePeriod, setActivePeriod] = useState('monthly');
   const [showDateModal, setShowDateModal] = useState(false);
   const [customStartDate, setCustomStartDate] = useState('');
   const [customEndDate, setCustomEndDate] = useState('');
+
+  const mainValue = 7843;
+  const percentChange = 2.5;
+  const salesGoal = 64843;
+  const commission = 1820;
+  const avgOrder = 991.42;
 
   const getChartData = () => {
     switch (activePeriod) {
@@ -27,7 +38,7 @@ export default function ExpenseTrendsSection() {
       case 'custom':
         return generateCustomData();
       default:
-        return expenseData.weeklyData;
+        return expenseData.monthlyExpenses;
     }
   };
 
@@ -51,145 +62,18 @@ export default function ExpenseTrendsSection() {
     datasets: [
       {
         data: chartData.map((item) => item.amount),
-        color: (opacity = 1) => `rgba(255, 199, 39, ${opacity})`, // #FFC727
+        color: (opacity = 1) => ORANGE,
         strokeWidth: 3,
       },
     ],
   };
 
-  const renderDateModal = () => (
-    <Modal
-      visible={showDateModal}
-      transparent={true}
-      animationType="slide"
-    >
-      <View style={{
-        flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
-        <View style={{
-          backgroundColor: 'white',
-          borderRadius: 16,
-          padding: 24,
-          width: '80%',
-          shadowColor: '#000',
-          shadowOffset: { width: 0, height: 4 },
-          shadowOpacity: 0.25,
-          shadowRadius: 8,
-          elevation: 8
-        }}>
-          <Text style={{
-            fontSize: 18,
-            fontWeight: '600',
-            color: '#1f2937',
-            marginBottom: 20,
-            textAlign: 'center'
-          }}>
-            Select Date Range
-          </Text>
-          
-          <View style={{ marginBottom: 16 }}>
-            <Text style={{
-              fontSize: 14,
-              fontWeight: '500',
-              color: '#374151',
-              marginBottom: 8
-            }}>
-              Start Date (YYYY-MM-DD)
-            </Text>
-            <TextInput
-              style={{
-                borderWidth: 1,
-                borderColor: '#d1d5db',
-                borderRadius: 8,
-                padding: 12,
-                fontSize: 16
-              }}
-              placeholder="2025-06-01"
-              value={customStartDate}
-              onChangeText={setCustomStartDate}
-            />
-          </View>
-          
-          <View style={{ marginBottom: 24 }}>
-            <Text style={{
-              fontSize: 14,
-              fontWeight: '500',
-              color: '#374151',
-              marginBottom: 8
-            }}>
-              End Date (YYYY-MM-DD)
-            </Text>
-            <TextInput
-              style={{
-                borderWidth: 1,
-                borderColor: '#d1d5db',
-                borderRadius: 8,
-                padding: 12,
-                fontSize: 16
-              }}
-              placeholder="2025-06-30"
-              value={customEndDate}
-              onChangeText={setCustomEndDate}
-            />
-          </View>
-          
-          <View style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between'
-          }}>
-            <TouchableOpacity
-              style={{
-                flex: 1,
-                padding: 12,
-                borderRadius: 8,
-                backgroundColor: '#f3f4f6',
-                marginRight: 8
-              }}
-              onPress={() => setShowDateModal(false)}
-            >
-              <Text style={{
-                textAlign: 'center',
-                fontSize: 16,
-                fontWeight: '500',
-                color: '#6b7280'
-              }}>
-                Cancel
-              </Text>
-            </TouchableOpacity>
-            
-            <TouchableOpacity
-              style={{
-                flex: 1,
-                padding: 12,
-                borderRadius: 8,
-                backgroundColor: '#3b82f6',
-                marginLeft: 8
-              }}
-              onPress={() => {
-                setShowDateModal(false);
-                setActivePeriod('custom');
-              }}
-            >
-              <Text style={{
-                textAlign: 'center',
-                fontSize: 16,
-                fontWeight: '500',
-                color: 'white'
-              }}>
-                Apply
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-    </Modal>
-  );
+  // Make the chart as wide as possible, minus padding
+  const chartWidth = screenWidth - 32;
 
   return (
-    <View style={{ paddingHorizontal: 16, paddingVertical: 16 }}>
+    <View style={{ padding: 16 }}>
+     
       <Text style={{
         fontSize: 18,
         fontWeight: '500',
@@ -198,109 +82,95 @@ export default function ExpenseTrendsSection() {
       }}>
         Expense Trends
       </Text>
-      <View style={{
-        backgroundColor: '#37474F',
-        borderRadius: 20,
-        padding: 10,
-        marginBottom: 20,
-      }}>
+        {/* Period Selector */}
+        <View style={{ flexDirection: "row", marginBottom: 18 }}>
+          {timePeriods.map((period) => (
+            <TouchableOpacity
+              key={period.value}
+              style={{
+                paddingHorizontal: 18,
+                paddingVertical: 7,
+                borderRadius: 20,
+                backgroundColor: activePeriod === period.value ? ORANGE : "#f3f4f6",
+                marginRight: 10,
+              }}
+              onPress={() => setActivePeriod(period.value)}
+            >
+              <Text style={{
+                color: activePeriod === period.value ? "#fff" : "#22223b",
+                fontWeight: "700",
+                fontSize: 15,
+              }}>
+                {period.label}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+
+       
+
+        {/* Chart */}
         <LineChart
           data={data}
-          width={screenWidth - 52}
-          height={220}
+          width={chartWidth}
+          height={240}
           withShadow={true}
           withDots={true}
-          withInnerLines={false}
-          withOuterLines={false}
+          withInnerLines={true}
+          withOuterLines={true}
           withVerticalLabels={true}
-          withHorizontalLabels={false}
-          yAxisLabel="$"
+          withHorizontalLabels={true}
+          yAxisLabel=""
+          yAxisSuffix=""
           chartConfig={{
-            backgroundGradientFrom: '#37474F',
-            backgroundGradientTo: '#37474F',
+            backgroundGradientFrom: "#f6f8fa",
+            backgroundGradientTo: "#f6f8fa",
             decimalPlaces: 0,
-            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            labelColor: (opacity = 1) => `rgba(255,255,255,${opacity})`,
-            fillShadowGradient: '#FFC727',
-            fillShadowGradientOpacity: 0.3,
+            color: (opacity = 1) => ORANGE,
+            labelColor: (opacity = 1) => "#888",
+            fillShadowGradient: ORANGE,
+            fillShadowGradientOpacity: 0.13,
             propsForDots: {
               r: '6',
               strokeWidth: '2',
-              stroke: '#FFC727',
-              fill: '#fff',
+              stroke: ORANGE,
+              fill: "#fff",
             },
             propsForBackgroundLines: {
-              stroke: 'transparent',
+              stroke: ORANGE,
             },
             propsForLabels: {
-              fontWeight: 'bold',
+              fontWeight: '500',
             },
           }}
           bezier
-          style={{ borderRadius: 20 }}
-          renderDotContent={({ x, y, index }) => (
-            <Text
-              key={index}
-              style={{
-                position: 'absolute',
-                left: x - 18,
-                top: y - 28,
-                color: '#FFC727',
-                fontWeight: 'bold',
-                fontSize: 12,
-                backgroundColor: 'rgba(55,71,79,0.95)',
-                paddingHorizontal: 6,
-                paddingVertical: 2,
-                borderRadius: 8,
-                overflow: 'hidden',
-                textAlign: 'center',
-                minWidth: 36,
-              }}
-            >
-              ${chartData[index]?.amount}
-            </Text>
-          )}
+          style={{ borderRadius: 18, marginBottom: 10, alignSelf: "center" }}
+          // renderDotContent={({ x, y, index }) => (
+          //   <Text
+          //     key={index}
+          //     style={{
+          //       position: 'absolute',
+          //       left: x - 18,
+          //       top: y - 28,
+          //       color: ORANGE,
+          //       fontWeight: 'bold',
+          //       fontSize: 12,
+          //       backgroundColor: '#fff',
+          //       paddingHorizontal: 6,
+          //       paddingVertical: 2,
+          //       borderRadius: 8,
+          //       overflow: 'hidden',
+          //       textAlign: 'center',
+          //       minWidth: 36,
+          //       borderWidth: 1,
+          //       borderColor: "#ffe0c2",
+          //     }}
+          //   >
+          //     ${chartData[index]?.amount}
+          //   </Text>
+          // )}
         />
-      </View>
-      
-      {/* Period Selector */}
-      <View style={{
-        flexDirection: 'row',
-        gap: 8,
-        marginBottom: 20
-      }}>
-        {timePeriods.map((period) => (
-          <TouchableOpacity
-            key={period.value}
-            style={{
-              paddingHorizontal: 16,
-              paddingVertical: 10,
-              borderRadius: 12,
-              backgroundColor: period.value === activePeriod ? '#3b82f6' : '#f8fafc',
-              borderWidth: 1,
-              borderColor: period.value === activePeriod ? '#3b82f6' : '#e2e8f0'
-            }}
-            activeOpacity={0.8}
-            onPress={() => {
-              if (period.value === 'custom') {
-                setShowDateModal(true);
-              } else {
-                setActivePeriod(period.value);
-              }
-            }}
-          >
-            <Text style={{
-              fontSize: 14,
-              fontWeight: '600',
-              color: period.value === activePeriod ? 'white' : '#64748b'
-            }}>
-              {period.label}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-      
-      {renderDateModal()}
+     
     </View>
   );
 }

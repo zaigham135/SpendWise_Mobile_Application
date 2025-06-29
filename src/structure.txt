@@ -1,0 +1,72 @@
+Folder PATH listing
+Volume serial number is 5630-7466
+E:.
+|   index.tsx
+|   structure.txt
+|   
++---api
+|       apiconfig.ts
+|       
++---components
+|   \---ui
+|           button.tsx
+|           card.tsx
+|           toggle-group.tsx
+|           toggle.tsx
+|           
++---lib
+|   |   utils.ts
+|   |   
+|   +---loadingbar
+|   |       loadingbar.tsx
+|   |       
+|   +---StackNavigator
+|   |       stacknavigator.tsx
+|   |       tabnavigator.tsx
+|   |       
+|   \---statusBar
+|           statusbar.tsx
+|           
+\---screens
+    +---add_product
+    |       addproduct.tsx
+    |       
+    +---Dhashboard
+    |   |   Dhashboard.tsx
+    |   |   
+    |   \---sections
+    |       +---CategoriesSection
+    |       |       CategoriesSection.tsx
+    |       |       index.ts
+    |       |       
+    |       +---ExpenseTrendsSection
+    |       |       ExpenseTrendsSection.tsx
+    |       |       index.ts
+    |       |       
+    |       +---FooterSection
+    |       |       footerlayout.tsx
+    |       |       FooterSection.tsx
+    |       |       index.ts
+    |       |       
+    |       \---RecentTransactionsSection
+    |               index.ts
+    |               RecentTransactionsSection.tsx
+    |               
+    +---login
+    |   |   login.tsx
+    |   |   
+    |   +---editUserDetails
+    |   |       editProfile.tsx
+    |   |       
+    |   \---signUp
+    |           signUp.tsx
+    |           
+    +---profile
+    |       profile.tsx
+    |       
+    \---transaction
+        |   transaction.tsx
+        |   
+        \---editTransaction
+                editTransaction.tsx
+                

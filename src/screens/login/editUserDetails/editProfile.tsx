@@ -10,7 +10,7 @@ import {
   Platform,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-
+import { edituserStyles as styles } from "../../../../style/login/edituserdetails/edituserdetails.styles";
 const THEME_PURPLE = "#37474F";
 const LIGHT_BG = "#fff";
 const BORDER = "#e5e7eb";
@@ -128,90 +128,3 @@ export default function EditProfile({ navigation }) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingBottom: 24,
-  },
-  card: {
-    backgroundColor: LIGHT_BG,
-    borderRadius: 14,
-    padding: 18,
-    width: "100%",
-    maxWidth: 370,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.06,
-    shadowRadius: 8,
-    elevation: 2,
-    marginBottom: 18,
-  },
-  profilePic: {
-    width: 90,
-    height: 90,
-    borderRadius: 45,
-    borderWidth: 2,
-    borderColor: THEME_PURPLE,
-  },
-  editPicBtn: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    backgroundColor: THEME_PURPLE,
-    borderRadius: 16,
-    padding: 6,
-    borderWidth: 2,
-    borderColor: "#fff",
-    elevation: 2,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "700",
-    color: "#22223b",
-    marginBottom: 2,
-    alignSelf: "flex-start",
-  
-   
-  },
-  subtitle: {
-    color: TEXT_GRAY,
-    fontSize: 15,
-    marginBottom: 18,
-    alignSelf: "flex-start",
-  },
-  inputLabel: {
-    color: TEXT_GRAY,
-    fontWeight: "600",
-    marginBottom: 4,
-    marginTop: 12,
-    fontSize: 14,
-    alignSelf: "flex-start",
-  },
-  input: {
-    backgroundColor: "#f3f4f6",
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: BORDER,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    fontSize: 15,
-    color: "#22223b",
-    marginBottom: 8,
-  },
-  saveBtn: {
-    backgroundColor: THEME_PURPLE,
-    borderRadius: 8,
-    paddingVertical: 13,
-    alignItems: "center",
-    marginTop: 16,
-    marginBottom: 2,
-    width: "100%",
-    maxWidth: 370,
-  },
-  saveBtnText: {
-    color: "#fff",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-});

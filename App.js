@@ -11,7 +11,7 @@ import LoginScreen from "./src/screens/login/login";
 import SignUpScreen from "./src/screens/login/signUp/signUp";
 import { LogBox } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage'; // Ensure you have installed @react-native-async-storage/async-storage
-
+import Toast from "react-native-toast-message";
 const Stack = createNativeStackNavigator();
 
 LogBox.ignoreLogs(["Warning: useInsertionEffect must not schedule updates."]);
@@ -78,6 +78,7 @@ export default function MainApp() {
             )}
           </Stack.Navigator>
         </NavigationContainer>
+          <Toast position="top" />
       </SafeAreaView>
     </View>
   );

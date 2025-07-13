@@ -182,7 +182,7 @@ export const profileStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginHorizontal: 14,
+    // marginHorizontal: 10,
     marginTop: 18,
     marginBottom: 6,
   },
@@ -190,6 +190,9 @@ export const profileStyles = StyleSheet.create({
     color: THEME_PURPLE,
     fontWeight: '600',
     fontSize: 13,
+    marginRight: 18,
+    paddingBottom: 0,
+    marginTop: 15,
   },
   activityCard: {
     backgroundColor: LIGHT_BG,

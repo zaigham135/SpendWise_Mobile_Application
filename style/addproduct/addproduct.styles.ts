@@ -1,4 +1,9 @@
 import { StyleSheet, Platform } from "react-native";
+const THEME_PURPLE = '#37474F'; // Dark gray color for the theme
+const LIGHT_BG = '#fff';
+const LIGHT_GRAY = '#f6f8fa';
+const BORDER = '#e5e7eb';
+const TEXT_GRAY = '#6b7280';
 export const addproductStyles = StyleSheet.create({
     
   label: {
@@ -19,6 +24,27 @@ export const addproductStyles = StyleSheet.create({
     paddingVertical: 8,
     marginBottom: 8,
   },
+pickerContainer: {
+  borderWidth: 1,
+  borderColor: '#e5e7eb',
+  backgroundColor: LIGHT_BG,
+  borderRadius: 8,
+  // overflow: 'hidden', // Remove this
+  minHeight: 50, // Ensure enough space
+  justifyContent: 'center',
+  minWidth: 180,
+},
+picker: {
+  height: 50,
+  width: '100%',
+  color: THEME_PURPLE,
+},
+pickerItem: {
+  fontSize: 14,
+  color: THEME_PURPLE,
+},
+
+
   input: {
     fontSize: 18,
     color: "#22223b",

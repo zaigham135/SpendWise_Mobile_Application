@@ -135,3 +135,134 @@ export const transactionStyles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+export const filterModalStyles = StyleSheet.create({
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContainer: {
+    backgroundColor: '#fff',
+    borderRadius: 16,
+    padding: 24,
+    width: '90%',
+    maxHeight: '80%', // Limit modal height
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: THEME_PURPLE,
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  filterLabel: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: THEME_PURPLE,
+    marginBottom: 8,
+    marginTop: 15,
+  },
+  categoryScroll: {
+    flexDirection: 'row',
+    marginBottom: 15,
+  },
+  categoryButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: TEXT_GRAY,
+    marginRight: 8,
+    backgroundColor: '#f0f0f0',
+  },
+  categoryButtonSelected: {
+    backgroundColor: THEME_PURPLE,
+    borderColor: THEME_PURPLE,
+  },
+  categoryButtonText: {
+    color: TEXT_GRAY,
+    fontWeight: '500',
+  },
+  categoryButtonTextSelected: {
+    color: '#fff',
+  },
+  dateInput: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 15,
+    justifyContent: 'center',
+    height: 50,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
+  },
+  filterButton: {
+    backgroundColor: THEME_PURPLE,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+    flex: 1,
+  },
+  filterButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  closeButton: {
+    marginTop: 15,
+    padding: 10,
+    alignItems: 'center',
+  },
+  closeButtonText: {
+    color: THEME_PURPLE,
+    fontWeight: 'bold',
+  },
+});
+export const paginationStyles = StyleSheet.create({
+  paginationContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+    paddingVertical: 10,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2,
+  },
+  paginationButton: {
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    marginHorizontal: 4,
+    borderRadius: 8,
+    backgroundColor: '#f0f0f0',
+  },
+  activePageButton: {
+    backgroundColor: THEME_PURPLE,
+  },
+  paginationText: {
+    color: THEME_PURPLE,
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  activePageText: {
+    color: '#fff',
+  },
+  disabledText: {
+    color: '#ccc',
+  },
+});
